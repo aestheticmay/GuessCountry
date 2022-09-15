@@ -68,11 +68,14 @@ class ViewController: UIViewController {
             title = "Wrong"
             score -= 1
         }
+        setupAlertController()
+    }
+    
+    private func setupAlertController() {
         
         let alertController = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
         present(alertController, animated: true)
-        
     }
 }
 
