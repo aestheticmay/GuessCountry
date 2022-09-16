@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     private var countries = [String]()
     private var score = 0
     private var correctAnswer = 0
+    private var totalTaps = 0
     
     // MARK: - Life-Cycle
 
@@ -64,18 +65,29 @@ class ViewController: UIViewController {
         if sender.tag == correctAnswer {
             title = "Correct"
             score += 1
+            totalTaps += 1
         } else {
             title = "Wrong"
             score -= 1
+            totalTaps += 1
         }
         setupAlertController()
     }
     
     private func setupAlertController() {
-        
+        if totalTaps <= 9 {
+        title = String("Your total score is \(totalTaps)")
         let alertController = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-        present(alertController, animated: true)
+            present(alertController, animated: true)
+        } else {
+            let totalAlertController = UIAlertController(title: "Congratulations!", message: "Your score is \(score)", preferredStyle: .alert)
+            totalAlertController.addAction(UIAlertAction(title: "Game over", style: .default, handler: askQuestion))
+                present(totalAlertController, animated: true)
+            score = 0
+            totalTaps = 0
+            correctAnswer = 0
+        }
     }
 }
 
